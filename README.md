@@ -1,4 +1,5 @@
 # JavaScript Library
+ This is a project of the Javascript module. It is preceded by the lesson about Objects and the Object Constructor.
 
 ## Built With
 
@@ -20,7 +21,7 @@ npm
 
 To get a local copy up and running follow these simple example steps:
 
-- Go to hhttps://github.com/Alexoid1/Library and clone the repo using: <br>
+- Go to https://github.com/Alexoid1/Library and clone the repo using: <br>
 `git clone https://github.com/Alexoid1/Library.git` in your terminal.
 
 ### Github Actions
