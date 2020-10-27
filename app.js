@@ -31,10 +31,10 @@ function Book(title,author,pages,status) {
     this.changeStatus=function(){
         if(this.status===true){
             this.status=false
-            console.log(this.status)
+            
         }else{
             this.status=true
-            console.log(this.status)
+            
         }
     }
 }
@@ -62,10 +62,11 @@ function create(book){
     cont.appendChild(read_btn)
     read_btn.addEventListener('click',function(e){
        book.changeStatus()
-       if(book.changeStatus()){
+       console.log(book.status)
+       if(book.status===true){
             read_btn.textContent='Not Read'
            
-       }else {
+       }else if(book.status===false) {
             read_btn.textContent='Read'
        }
         
