@@ -58,6 +58,8 @@ function createStorage(book){
       myLibrary.unshift(book);
       localStorage.setItem("myLibrary",JSON.stringify(myLibrary));
   }
+
+  document.getElementById('book').reset();
 }
 
 
@@ -127,7 +129,7 @@ function addBookToLibrary(e) {
   
   create(JSON.parse(localStorage.getItem("myLibrary")));
 
-  document.getElementById('book').reset();
+  
 }
 
 
