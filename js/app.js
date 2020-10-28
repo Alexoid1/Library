@@ -1,7 +1,11 @@
+// EVENTS
 const booksContainer = document.querySelector('#books-container');
+document.getElementById('book').addEventListener('submit',  addBookToLibrary);
+
 
 const myLibrary = [];
 
+// CONSTRUCTOR
 function Book(title, author, pages, status) {
   this.title = title;
   this.author = author;
@@ -17,6 +21,7 @@ Book.prototype.changeStatus = function changeStatus() {
   }
 };
 
+//lOGIC
 function buttonValue(status,button){
      
     if (status === true) {
@@ -31,7 +36,7 @@ function deleteBook(index,array){
     create(myLibrary)
 }
 
-
+// DOM manipulation
 function create(myLibrary) {
     booksContainer.innerHTML='';
     
@@ -82,12 +87,9 @@ function create(myLibrary) {
   
 }
 
-function addBookToLibrary(book) {
-  myLibrary.unshift(book);
-  create(myLibrary);
-}
 
-function addBook(e) {
+
+function addBookToLibrary(e) {
   e.preventDefault();
   const title = document.getElementById('title').value;
   const author = document.getElementById('author').value;
@@ -96,11 +98,10 @@ function addBook(e) {
 
   const book = new Book(title, author, pages, status);
 
-  
-
-  addBookToLibrary(book);
+  myLibrary.unshift(book);
+  create(myLibrary);
 
   document.getElementById('book').reset();
 }
 
-document.getElementById('book').addEventListener('submit', addBook);
+

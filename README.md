@@ -1,6 +1,9 @@
 # JavaScript Library
  This is a project of the Javascript module. It is preceded by the lesson about Objects and the Object Constructor.
 
+![screenshot](./img/image.png)
+
+
 ## Built With
 
 - JavaScript
