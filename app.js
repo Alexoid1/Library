@@ -17,51 +17,74 @@ Book.prototype.changeStatus = function changeStatus() {
   }
 };
 
-function create(book) {
-  const cardContainer = document.createElement('div');
-  cardContainer.classList.add('card', 'w-25');
-  const cont = document.createElement('div');
-  cont.classList.add('card-body');
-  const title = document.createElement('h2');
-  title.classList.add('card-title');
-  const author = document.createElement('p');
-  author.classList.add('card-subtitle');
-  const pages = document.createElement('p');
-  pages.classList.add('card-text');
-  const read = document.createElement('p');
-  const readBtn = document.createElement('button');
-  readBtn.classList.add('btn', 'btn-primary');
-  if (book.status) {
-    readBtn.textContent = 'Not Read';
-  } else {
-    readBtn.textContent = 'Read';
-  }
+function buttonValue(status,button){
+     
+    if (status === true) {
+        button.textContent='Not Read'
+    } else if (status === false) {
+        button.textContent='Read'
+    }   
+}
 
-  title.textContent = book.title;
-  author.textContent = book.author;
-  pages.textContent = book.pages;
+function deleteBook(index,array){
+    array.splice(index,1)
+    create(myLibrary)
+}
 
-  booksContainer.appendChild(cont);
-  booksContainer.appendChild(cardContainer);
-  cardContainer.appendChild(cont);
-  cont.appendChild(title);
-  cont.appendChild(author);
-  cont.appendChild(pages);
-  cont.appendChild(read);
-  cont.appendChild(readBtn);
 
-  readBtn.addEventListener('click', () => {
-    book.changeStatus();
-    if (book.status === true) {
-      readBtn.textContent = 'Not Read';
-    } else if (book.status === false) {
-      readBtn.textContent = 'Read';
+function create(myLibrary) {
+    booksContainer.innerHTML='';
+    
+    for(let i=0;i<myLibrary.length;i++){
+        let cardContainer = document.createElement('div');
+        cardContainer.classList.add('card', 'w-25');
+        let cont = document.createElement('div');
+        cont.classList.add('card-body');
+        let title = document.createElement('h2');
+        title.classList.add('card-title');
+        let author = document.createElement('p');
+        author.classList.add('card-subtitle');
+        let pages = document.createElement('p');
+        pages.classList.add('card-text');
+        let read = document.createElement('p');
+        let readBtn = document.createElement('button');
+        readBtn.classList.add('btn', 'btn-primary');
+        buttonValue(myLibrary[i].status,readBtn)
+        let deleteBtn = document.createElement('button');
+        deleteBtn.classList.add('btn', 'btn-danger','ml-2');
+        deleteBtn.textContent='Delete'
+
+        title.textContent = myLibrary[i].title;
+        author.textContent = myLibrary[i].author;
+        pages.textContent = myLibrary[i].pages;
+
+        booksContainer.appendChild(cont);
+        booksContainer.appendChild(cardContainer);
+        cardContainer.appendChild(cont);
+        cont.appendChild(title);
+        cont.appendChild(author);
+        cont.appendChild(pages);
+        cont.appendChild(read);
+        cont.appendChild(readBtn);
+        cont.appendChild(deleteBtn);
+
+        readBtn.addEventListener('click', () => {
+            myLibrary[i].changeStatus();
+            buttonValue(myLibrary[i].status,readBtn)
+        });
+        deleteBtn.addEventListener('click', () => {
+            
+            deleteBook(i,myLibrary)
+        });
+       
+        
     }
-  });
+  
 }
 
 function addBookToLibrary(book) {
-  myLibrary.push(book);
+  myLibrary.unshift(book);
+  create(myLibrary);
 }
 
 function addBook(e) {
@@ -73,7 +96,7 @@ function addBook(e) {
 
   const book = new Book(title, author, pages, status);
 
-  create(book, booksContainer);
+  
 
   addBookToLibrary(book);
 
