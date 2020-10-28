@@ -1,9 +1,10 @@
+
 // EVENTS
 const booksContainer = document.querySelector('#books-container');
 document.getElementById('book').addEventListener('submit',  addBookToLibrary);
 
 
-const myLibrary = [];
+
 
 // CONSTRUCTOR
 function Book(title, author, pages, status) {
@@ -13,15 +14,20 @@ function Book(title, author, pages, status) {
   this.status = status;
 }
 
-Book.prototype.changeStatus = function changeStatus() {
-  if (this.status === true) {
-    this.status = false;
+function changeStatus(myLibrary,index) {
+  console.log(myLibrary[index])
+  if (myLibrary[index].status === true) {
+     myLibrary[index].status = false;
+     
+     localStorage.setItem("myLibrary",JSON.stringify(myLibrary));
   } else {
-    this.status = true;
+    myLibrary[index].status = true;
+    localStorage.setItem("myLibrary",JSON.stringify(myLibrary));
   }
+  create(myLibrary)
 };
 
-//lOGIC
+// lOGIC
 function buttonValue(status,button){
      
     if (status === true) {
@@ -31,31 +37,49 @@ function buttonValue(status,button){
     }   
 }
 
-function deleteBook(index,array){
-    array.splice(index,1)
+function deleteBook(index,myLibrary){
+    myLibrary.splice(index,1)
+    localStorage.setItem("myLibrary",JSON.stringify(myLibrary));
     create(myLibrary)
+    
 }
 
+
+
 // DOM manipulation
+function createStorage(book){
+  if(localStorage.getItem("myLibrary")===null){
+    let myLibrary=[];
+    myLibrary.unshift(book);
+    
+    localStorage.setItem("myLibrary",JSON.stringify(myLibrary));
+  }else{
+      let myLibrary=JSON.parse(localStorage.getItem("myLibrary")); 
+      myLibrary.unshift(book);
+      localStorage.setItem("myLibrary",JSON.stringify(myLibrary));
+  }
+}
+
+
 function create(myLibrary) {
     booksContainer.innerHTML='';
     
     for(let i=0;i<myLibrary.length;i++){
-        let cardContainer = document.createElement('div');
+        const cardContainer = document.createElement('div');
         cardContainer.classList.add('card', 'w-25');
-        let cont = document.createElement('div');
+        const cont = document.createElement('div');
         cont.classList.add('card-body');
-        let title = document.createElement('h2');
+        const title = document.createElement('h2');
         title.classList.add('card-title');
-        let author = document.createElement('p');
+        const author = document.createElement('p');
         author.classList.add('card-subtitle');
-        let pages = document.createElement('p');
+        const pages = document.createElement('p');
         pages.classList.add('card-text');
-        let read = document.createElement('p');
-        let readBtn = document.createElement('button');
+        const read = document.createElement('p');
+        const readBtn = document.createElement('button');
         readBtn.classList.add('btn', 'btn-primary');
         buttonValue(myLibrary[i].status,readBtn)
-        let deleteBtn = document.createElement('button');
+        const deleteBtn = document.createElement('button');
         deleteBtn.classList.add('btn', 'btn-danger','ml-2');
         deleteBtn.textContent='Delete'
 
@@ -74,7 +98,8 @@ function create(myLibrary) {
         cont.appendChild(deleteBtn);
 
         readBtn.addEventListener('click', () => {
-            myLibrary[i].changeStatus();
+            let mat = JSON.parse(localStorage.getItem("myLibrary"))
+            changeStatus(mat,i);
             buttonValue(myLibrary[i].status,readBtn)
         });
         deleteBtn.addEventListener('click', () => {
@@ -97,9 +122,10 @@ function addBookToLibrary(e) {
   const status = document.getElementById('read').checked;
 
   const book = new Book(title, author, pages, status);
-
-  myLibrary.unshift(book);
-  create(myLibrary);
+  
+  createStorage(book)
+  
+  create(JSON.parse(localStorage.getItem("myLibrary")));
 
   document.getElementById('book').reset();
 }
