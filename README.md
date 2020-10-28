@@ -13,7 +13,7 @@
 - Stylelintrc
 
 ## Live Demo
-[Live Demo Link](https://rawcdn.githack.com/Alexoid1/Library/85ec581abcffb69ecb5f215df9f0b10b83431c63/index.html)
+[Live Demo Link](https://rawcdn.githack.com/Alexoid1/Library/b8399067c84ce18ee9e08c55b39bbe866758a7a4/index.html)
  
 
 ### Prerequisites
