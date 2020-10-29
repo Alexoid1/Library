@@ -5,11 +5,13 @@ const booksContainer = document.querySelector('#books-container');
 document.getElementById('book').addEventListener('submit', addBookToLibrary);
 
 // CONSTRUCTOR
-function Book(title, author, pages, status) {
+class Book {
+  constructor(title, author, pages, status){
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.status = status;
+  }
 }
 
 function changeStatus(myLibrary, index) {
